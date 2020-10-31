@@ -24,6 +24,7 @@ include('../includes/db.php');
                             Deconnecte
                         </a>
                     </nav>
+                    <!-- ------------------------------------------ -->
                     <?php
                     if (isset($_GET['message']) && $_GET['message'] == 'modifier') :
                         echo "<div class='alert alert-success mt-4 p-2'>le véhicule Modifié a été avec succès</div>";
@@ -140,7 +141,7 @@ include('../includes/db.php');
                                 <th scope="col">Model</th>
                                 <th scope="col">Moteur</th>
                                 <th scope="col">Prix</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">Seting</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">
@@ -155,8 +156,8 @@ include('../includes/db.php');
                                     </td>
                                     <td><?= $data['marque'] ?></td>
                                     <td><?= $data['model'] ?></td>
+                                    <td><?= $data['moteur'] ?></td>
                                     <td><?= $data['prix'] ?>$</td>
-                                    <td><?= $data['status'] ?></td>
                                     <td class="d-flex flex-row">
                                         <a href="dashboard/modifier.php?id=<?= $data['id'] ?>" class="btn bnt-sm btn-warning mr-1"><i class="fa fa-edit"></i></a>
                                         <form method="post" action="dashboard/check.php">

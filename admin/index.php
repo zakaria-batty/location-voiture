@@ -11,8 +11,8 @@ if (isset($_POST['login'])) :
     $query = "SELECT * FROM admin WHERE useradmin = '$useradmin' && password = '$password'";
     $run = mysqli_query($db, $query);
 
-    $result = mysqli_fetch_array($run);
-    if ($result) {
+    $data = mysqli_fetch_array($run);
+    if ($data) {
         header("location:view.php");
     } else {
         header("location:index.php?message=err");

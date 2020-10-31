@@ -36,7 +36,7 @@ endif;
         endif;
         ?>
         <div class="row col-lg-12 mx-auto">
-            <a href="../index.php" class="btn btn-sm btn-dark my-4">
+            <a href="../view.php" class="btn btn-sm btn-dark my-4">
                 <i class="fas fa-home"></i>
             </a>
             <div class="card mb-3">
