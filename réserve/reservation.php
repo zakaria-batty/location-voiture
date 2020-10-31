@@ -1,18 +1,43 @@
 <?php
 include('../includes/header.php');
+include('../includes/db.php');
+
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+
+
+$query = "SELECT * FROM vehicule WHERE id='$id'";
+$run = mysqli_query($db, $query);
+$data = mysqli_fetch_array($run);
+
+
+if (isset($_POST['reserve'])) :
+
+    $id1 = htmlentities($_POST['id']);
+    $nom = htmlentities($_POST['nom']);
+    $prenom = htmlentities($_POST['prenom']);
+    $telephone = htmlentities($_POST['telephone']);
+    $jours = htmlentities($_POST['jours']);
+
+    $query = "UPDATE vehicule SET  `nom`= '$nom', `prenom` = '$prenom', `telephone` = 'telephone', `jours` = '$jours', `status` = 'reservé' WHERE id= '$id1'";
+    $run = mysqli_query($db, $query);
+    if ($run) {
+        header('location:../index.php?message=reservé');
+    } else {
+        header('location:modifier.php?message=err');
+    }
+endif;
+
 ?>
 
 <div class="container-fluid">
     <div class="row">
         <div class="row col-lg-12 mx-auto">
-            <a href="index.php" class="btn btn-sm btn-primary my-4">
+            <a href="../index.php" class="btn btn-sm btn-primary my-4">
                 <i class="fas fa-home"></i>
             </a>
             <?php
-            if (isset($_GET['message']) && $_GET['message'] == 'ajouter') :
-                echo "<div class='alert alert-success'>le demande ajouter a été avec succès</div>";
-            endif;
-            if (isset($_GET['msg']) && $_GET['msg'] == 'err') :
+         
+            if (isset($_GET['msg']) && $_GET['messagesg'] == 'err') :
                 echo "<div class='alert alert-danger'>Veuillez réessayer</div>";
             endif;
             ?>
@@ -20,17 +45,19 @@ include('../includes/header.php');
             <div class="card mb-3">
                 <div class="row no-gutters">
                     <div class="col-md-4">
-                        <img src="../images/Bmw (1).jpg" class="card-img-top" alt="...">
+                        <img src="../images/<?= $data['picture'] ?>" class="card-img-top" alt="...">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item ">Mercedes amge</li>
-                            <li class="list-group-item">models : 2019</li>
-                            <li class="list-group-item">diesel</li>
-                            <li class="list-group-item">Prix : 80$ un seul jour</li>
+                            <li class="list-group-item "><?= $data['marque'] ?></li>
+                            <li class="list-group-item">models : <?= $data['model'] ?></li>
+                            <li class="list-group-item"> <?= $data['moteur'] ?></li>
+                            <li class="list-group-item">Prix : <?= $data['prix'] ?>$ un seul jour</li>
+                        </ul>
                         </ul>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <form method="post" accept="">
+                            <form method="post" action="">
+                                <input type="hidden" name="id" value="<?= $data['id'] ?>">
                                 <div class="form-group">
                                     <label for="nom">Nom</label>
                                     <input type="text" name="nom" class="form-control" placeholder="Entre le nom">
